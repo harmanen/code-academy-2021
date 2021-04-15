@@ -14,12 +14,23 @@ export default function Cars(props) {
       .catch((err) => console.log(err));
   }, []);
 
+  const onDelete = (id) => {
+    fetch(`/api/cars/${id}`, {
+      method: "DELETE",
+    }).then(() => setCars(cars.filter(car => car.id !== id)));
+  };
+
   return (
     <>
       <AddCar />
       <Row id="cars">
         {cars.map((car) => (
-          <Car key={car.id} make={car.make} model={car.model} />
+          <Car
+            key={car.id}
+            make={car.make}
+            model={car.model}
+            onClick={() => onDelete(car.id)}
+          />
         ))}
       </Row>
     </>
