@@ -14,14 +14,6 @@ export default function Cars(props) {
     dispatch(getCars());
   }, [dispatch]);
 
-  const removeCar = (id) => {
-    // fetch(`/api/cars/${id}`, {
-    //   method: "DELETE",
-    // }).then(() => {
-    //   setCars(cars.filter((car) => car.id !== id));
-    // });
-  };
-
   if (error) {
     return error;
   }
@@ -39,7 +31,7 @@ export default function Cars(props) {
             key={car.id}
             make={car.make}
             model={car.model}
-            onDelete={() => removeCar(car.id)}
+            carId={car.id}
           />
         ))}
       </Row>

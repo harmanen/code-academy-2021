@@ -13,6 +13,12 @@ export const addCar = createAsyncThunk("cars/addCar", async (car, thunkAPI) => {
   }).then((response) => response.json());
 });
 
+export const deleteCar = createAsyncThunk("cars/deleteCar", async (carId, thunkAPI) => {
+  return fetch(`/api/cars/${carId}`, {
+    method: "DELETE",
+  }).then((response) => response.json());
+});
+
 export const carsSlice = createSlice({
   name: "cars",
   initialState: {
@@ -50,6 +56,12 @@ export const carsSlice = createSlice({
       return {
         ...state,
         carList: [...state.carList, action.payload],
+      };
+    },
+    [deleteCar.fulfilled]: (state, action) => {
+      return {
+        ...state,
+        carList: [...state.carList.filter(car => car.id !== action.meta.arg)],
       };
     },
   },
