@@ -1,12 +1,20 @@
 package com.example.demo.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Fruit {
-    private Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String type;
     private String name;
 
-    public Fruit(Long id, String type, String name) {
-        this.id = id;
+    Fruit() {
+    }
+
+    public Fruit(String type, String name) {
         this.type = type;
         this.name = name;
     }
