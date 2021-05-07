@@ -11,10 +11,11 @@ public class Fruit {
     private String type;
     private String name;
 
-    Fruit() {
+    public Fruit() {
     }
 
-    public Fruit(String type, String name) {
+    public Fruit(Long id, String type, String name) {
+        this.id = id;
         this.type = type;
         this.name = name;
     }
@@ -31,11 +32,35 @@ public class Fruit {
         return this.type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getName() {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Fruit id(Long id) {
+        setId(id);
+        return this;
+    }
+
+    public Fruit type(String type) {
+        setType(type);
+        return this;
+    }
+
+    public Fruit name(String name) {
+        setName(name);
+        return this;
+    }
+
+    @Override
     public String toString() {
-        return "Fruit - type: " + this.type + ", name: " + this.name;
+        return "{" + " id='" + getId() + "'" + ", type='" + getType() + "'" + ", name='" + getName() + "'" + "}";
     }
 }

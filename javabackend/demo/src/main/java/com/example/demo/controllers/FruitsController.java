@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,6 +45,18 @@ public class FruitsController {
     public Fruit replaceFruit(@RequestBody Fruit newFruit, @PathVariable Long id) {
         newFruit.setId(id);
         return this.repository.save(newFruit);
+    }
+
+    @PatchMapping("/Fruits/{id}")
+    public Fruit patchFruit(@RequestBody Fruit newFruit, @PathVariable Long id) {
+        Fruit oldFruit = this.getFruit(id);
+        if (newFruit.getName() != null) {
+            oldFruit.setName(newFruit.getName());
+        }
+        if (newFruit.getType() != null) {
+            oldFruit.setType(newFruit.getType());
+        }
+        return this.repository.save(oldFruit);
     }
 
     @DeleteMapping("/Fruits/{id}")
