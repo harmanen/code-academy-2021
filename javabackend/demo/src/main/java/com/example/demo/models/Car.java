@@ -5,45 +5,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Car {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String make;
     private String model;
-
-    Car() {
-    }
-
-    public Car(Long id, String make, String model) {
-        this.make = make;
-        this.model = model;
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMake() {
-        return this.make;
-    }
-
-    public String getModel() {
-        return this.model;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String toString() {
-        return "Car - make: " + this.make + ", model: " + this.model;
-    }
 }
