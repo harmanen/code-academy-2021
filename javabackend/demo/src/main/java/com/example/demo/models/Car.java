@@ -22,6 +22,10 @@ public class Car {
     public Long getId() {
         return this.id;
     }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getMake() {
         return this.make;
@@ -29,6 +33,14 @@ public class Car {
 
     public String getModel() {
         return this.model;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String toString() {
