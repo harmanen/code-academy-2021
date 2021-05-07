@@ -6,6 +6,9 @@ import com.example.demo.models.Fruit;
 import com.example.demo.repositories.FruitsRepository;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +28,12 @@ public class FruitsController {
         return this.repository.findAll();
     }
 
+    @GetMapping("/Fruits/{id}")
+    public Fruit getFruit(@PathVariable Long id) {
+        return this.repository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find entity with id: " + id));
+    }
+
     @PostMapping("/Fruits")
     public Fruit addFruit(@RequestBody Fruit newFruit) {
         return this.repository.save(newFruit);
@@ -32,7 +41,11 @@ public class FruitsController {
 
     @DeleteMapping("/Fruits/{id}")
     public void deleteFruit(@PathVariable Long id) {
-        this.repository.deleteById(id);
+        try {
+            this.repository.deleteById(id);
+        } catch (DataAccessException error) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find entity with id: " + id);
+        }
     }
 
 }
