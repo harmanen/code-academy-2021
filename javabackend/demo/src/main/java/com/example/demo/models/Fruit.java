@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Fruit {
+public class Fruit implements IHasId<Long> {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String type;
     private String name;

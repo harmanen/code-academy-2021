@@ -29,7 +29,8 @@
 		"vscjava.vscode-spring-initializr",
 		"vscjava.vscode-spring-boot-dashboard",
 		"mtxr.sqltools",
-		"mtxr.sqltools-driver-pg"
+		"mtxr.sqltools-driver-pg",
+		"gabrielbb.vscode-lombok"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
