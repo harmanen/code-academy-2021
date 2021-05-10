@@ -16,5 +16,5 @@ import lombok.Setter;
 public class Book implements IHasId<Long> {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String title;
-    private Long year;
+    private Integer publicationYear;
 }
