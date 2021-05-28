@@ -10,12 +10,12 @@ export default (app) => {
 
   app.post("/Cars", (req, res) => {
     const { body } = req;
-    const { make, name } = body;
+    const { make, model } = body;
 
-    console.log(make, name);
+    console.log(make, model);
 
     const id = cars.reduce((maxId, car) => Math.max(maxId, car.id), 0);
-    const newCar = { id: id + 1, make, name };
+    const newCar = { id: id + 1, make, model };
 
     cars.push(newCar);
     res.json(newCar);
