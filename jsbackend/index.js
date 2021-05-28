@@ -13,6 +13,16 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.get("/Chunks", (req, res) => {
+  res.header("transfer-encoding", "chunked");
+  res.set("Content-Type", "text/json");
+  const interval = setInterval(() => res.write("A"), 500);
+  setTimeout(() => {
+    clearInterval(interval);
+    res.end();
+  }, 5000)
+})
+
 app.get("/Fruits", (req, res) => {
   const fruits = [{ type: "apple", name: "Golden" }];
   res.json(fruits);
