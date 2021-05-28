@@ -1,11 +1,14 @@
-import express from 'express';
+import express from "express";
+import bodyParser from "body-parser";
+
 const app = express();
 const port = 3000;
+app.use(bodyParser.json())
 
-import SampleController from './SampleController.js'
-import FruitsController from './fruits/FruitsController.js'
+import SampleController from "./SampleController.js";
+import FruitsController from "./fruits/FruitsController.js";
 
-SampleController(app)
+SampleController(app);
 FruitsController(app);
 
 app.listen(port, () => {
