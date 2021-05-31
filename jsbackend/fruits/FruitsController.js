@@ -1,33 +1,39 @@
 import { secure } from "../AuthController.js";
+import { FruitModel } from "./FruitsRepository.js";
 
 const fruits = [{ id: 1, type: "apple", name: "Golden" }];
 
 export default (app) => {
-  app.get("/Fruits", secure("USER", "ADMIN"), (req, res) => {
-    res.json(fruits);
-  });
-
-  app.post("/Fruits", secure("ADMIN"), (req, res) => {
-    const { body } = req;
-    const { type, name } = body;
-
-    const id = fruits.reduce((maxId, fruit) => Math.max(maxId, fruit.id), 0);
-
-    const newFruit = { id: id + 1, type, name };
-
-    fruits.push(newFruit);
-    res.json(newFruit);
-  });
-
-  app.delete("/Fruits/:id", secure("ADMIN"), (req, res) => {
-    const { params } = req;
-
-    const n = fruits.findIndex((fruit) => fruit.id === parseInt(params.id));
-
-    if (n > -1) {
-      fruits.splice(n, 1);
+  app.get(
+    "/Fruits",
+    /*secure("USER", "ADMIN"),*/ async (req, res) => {
+      const fruits = await FruitModel.find({});
+      res.send(fruits);
     }
+  );
 
-    res.end();
-  });
+  app.post(
+    "/Fruits",
+    /*secure("ADMIN"),*/ async (req, res) => {
+      const { body } = req;
+
+      try {
+        const newFruit = new FruitModel(body);
+        await newFruit.save();
+
+        res.json(newFruit);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    }
+  );
+
+  app.delete(
+    "/Fruits/:id",
+    /*secure("ADMIN"),*/ async (req, res) => {
+      const { params } = req;
+      await FruitModel.findByIdAndDelete(params.id);
+      res.end();
+    }
+  );
 };
