@@ -1,14 +1,12 @@
 import { secure } from "../AuthController.js";
 import { FruitModel } from "./FruitsRepository.js";
 
-const fruits = [{ id: 1, type: "apple", name: "Golden" }];
-
 export default (app) => {
   app.get(
     "/Fruits",
     /*secure("USER", "ADMIN"),*/ async (req, res) => {
       const fruits = await FruitModel.find({});
-      res.send(fruits);
+      res.json(fruits);
     }
   );
 
