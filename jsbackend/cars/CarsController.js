@@ -1,35 +1,32 @@
+import { CarModel } from "./CarsRepository.js";
+
 const cars = [
   { id: 1, make: "ford", model: "Mustang" },
   { id: 2, make: "honda", model: "Civic" },
 ];
 
 export default (app) => {
-  app.get("/Cars", (req, res) => {
-    res.json(cars);
+  app.get("/Cars", async (req, res) => {
+    const cars = await CarModel.find({});
+    res.send(cars);
   });
 
-  app.post("/Cars", (req, res) => {
+  app.post("/Cars", async (req, res) => {
     const { body } = req;
-    const { make, model } = body;
 
-    console.log(make, model);
+    try {
+      const newCar = new CarModel(body);
+      await newCar.save();
 
-    const id = cars.reduce((maxId, car) => Math.max(maxId, car.id), 0);
-    const newCar = { id: id + 1, make, model };
-
-    cars.push(newCar);
-    res.json(newCar);
+      res.json(newCar);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   });
 
-  app.delete("/Cars/:id", (req, res) => {
+  app.delete("/Cars/:id", async (req, res) => {
     const { params } = req;
-
-    console.log(params);
-
-    const n = cars.findIndex((car) => car.id === parseInt(params.id));
-
-    if (n > -1) {
-      cars.splice(n, 1);
-    }
+    await CarModel.findByIdAndDelete(params.id);
+    res.end();
   });
 };
