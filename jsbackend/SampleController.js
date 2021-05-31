@@ -13,10 +13,14 @@ export default (app) => {
   app.get("/Chunks", (req, res) => {
     res.header("transfer-encoding", "chunked");
     res.set("Content-Type", "text/json");
-    const interval = setInterval(() => res.write("A"), 500);
+    const interval = setInterval(() => res.write("A"), 1000);
     setTimeout(() => {
       clearInterval(interval);
       res.end();
-    }, 5000);
+    }, 10000);
+  });
+
+  app.get("/html", (req, res) => {
+    res.send("<html></html>");
   });
 };
