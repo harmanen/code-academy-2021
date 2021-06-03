@@ -5,7 +5,7 @@ export default (app) => {
   app.get(
     "/Fruits",
     /*secure("USER", "ADMIN"),*/ async (req, res) => {
-      const fruits = await FruitModel.find({});
+      const fruits = await FruitModel.find({}).populate("color");
       res.json(fruits);
     }
   );

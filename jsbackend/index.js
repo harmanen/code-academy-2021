@@ -23,12 +23,14 @@ await mongoose.connect(
 import AuhtController from "./AuthController.js";
 import GraphQlController from "./GraphQlController.js";
 import SampleController from "./SampleController.js";
+import GeoCodingController from "./geocoding/GeoCodingController.js";
 import FruitsController from "./fruits/FruitsController.js";
 import CarsController from "./cars/CarsController.js";
 
 AuhtController(app);
 GraphQlController(app);
 SampleController(app);
+GeoCodingController(app);
 FruitsController(app);
 CarsController(app);
 

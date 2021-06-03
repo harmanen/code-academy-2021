@@ -1,3 +1,5 @@
+import fs from "fs";
+
 export default (app) => {
   app.get("/", (req, res) => {
     const {
@@ -22,5 +24,18 @@ export default (app) => {
 
   app.get("/html", (req, res) => {
     res.send("<html></html>");
+  });
+
+  app.get("/file", (req, res) => {
+    const stream = fs.createReadStream("./VeryLargeFile.mp4");
+    var stats = fs.statSync("./VeryLargeFile.mp4");
+
+    res.writeHead(200, {
+      "Content-Type": "video/mp4",
+      "Content-disposition": "attachment;filename=" + "VeryLargeFile.mp4",
+      "Content-Length": stats.size,
+    });
+
+    stream.pipe(res);
   });
 };
