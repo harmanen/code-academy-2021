@@ -1,8 +1,9 @@
 name: jsbackend CI
 
 on:
-  tags: 
-    - *
+  push:
+    tags: 
+      - *
 
 jobs:
   build:
