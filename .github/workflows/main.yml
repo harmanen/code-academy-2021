@@ -16,7 +16,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./jsbackend
-          file: ./Dockerfile
+          file: ./jsbackend/Dockerfile
           push: false
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jsbackend:latest
 
