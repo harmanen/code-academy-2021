@@ -1,0 +1,24 @@
+name: jsbackend CI
+
+on:
+  pull_request: 
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./jsbackend
+          file: ./Dockerfile
+          push: false
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jsbackend:latest
+
+      - name: Image digest 
+        run: echo ${{ steps.docker_build.outputs.digest }}
