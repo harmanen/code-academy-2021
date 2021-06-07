@@ -1,21 +1,24 @@
-const mapStringsToNumbers = {
-  one: 1,
-  two: 2,
-  five: 5,
-  seven: 7,
-  nine: 9,
-  ten: 10,
+const dictionary = [
+  "zero",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+];
+
+export const convertStringToNumber = (string) => {
+  return dictionary.indexOf(string.toLowerCase());
 };
-
-const mapNumbersToStrings = Object.entries(mapStringsToNumbers).reduce(
-  (acc, [key, value]) => ({ ...acc, [value]: key }),
-  {}
-);
-
-export const convertStringToNumber = (string) =>
-  parseInt(mapStringsToNumbers[string.toLowerCase()]);
-
-export const convertNumberToString = (number) => mapNumbersToStrings[number];
-
-export const sum = (a, b) =>
-  mapNumbersToStrings[mapStringsToNumbers[a] + mapStringsToNumbers[b]];
+export const convertNumberToString = (number) => {
+  return dictionary[number];
+};
+export const sum = (a, b) => {
+  const result = convertStringToNumber(a) + convertStringToNumber(b);
+  return convertNumberToString(result);
+};

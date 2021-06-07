@@ -1,0 +1,16 @@
+name: jsbackend CI
+
+on:
+  push:
+    - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Out Repo
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        run: cd jsbackend && npm test
