@@ -1,11 +1,9 @@
 name: jsbackend CI
 
-on:
-  push:
-    - "*"
+on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
