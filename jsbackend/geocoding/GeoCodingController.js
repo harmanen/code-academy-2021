@@ -54,8 +54,16 @@ export default (app, redis, geoCodeFunctions) => {
             geoCodeFunctions.map((func) => func(address))
           )
         )
-          .filter(({ status }) => status === "fulfilled")
+          .filter(
+            ({ status, value }) =>
+              status === "fulfilled" && value.lat && value.lng
+          )
           .map(({ value }) => value);
+
+        if (results?.length === 0) {
+          return res.status(404).end();
+        }
+
         const sums = results.reduce((sums, result) => ({
           lng: sums.lng + result.lng,
           lat: sums.lat + result.lat,

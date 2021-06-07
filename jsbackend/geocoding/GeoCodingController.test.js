@@ -24,7 +24,7 @@ beforeEach(() => {
     set: jest.fn(),
   };
   mockGeocodeFunction = jest.fn((address) =>
-    Promise.resolve(geocodeDb[address])
+    Promise.resolve(geocodeDb[address] || { lat: null, lng: null })
   );
   GeoCodingController(mockApp, mockRedis, [mockGeocodeFunction]);
 
@@ -62,6 +62,22 @@ test("Test case where value is not in redis", async () => {
 
   expect(json.mock.calls.length).toBe(1);
   expect(json.mock.calls[0][0]).toMatchSnapshot();
+});
+
+test("Test case where value not found at all", async () => {
+  const end = jest.fn();
+  const json = jest.fn();
+  const status = jest.fn(() => ({
+    end,
+  }));
+  await callEndpoint(
+    { query: { address: "Unknown Address" } },
+    { status, end, json }
+  );
+
+  expect(status.mock.calls.length).toBe(1);
+  expect(status.mock.calls[0][0]).toBe(404);
+  expect(end.mock.calls.length).toBe(1);
 });
 
 test("Test mapbox url", async () => {
