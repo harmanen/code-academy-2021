@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "author": "",
   "license": "ISC",
@@ -24,5 +24,14 @@
     "mongoose": "^5.12.12",
     "nodemon": "^2.0.7",
     "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "jest": "^27.0.4"
+  },
+  "jest": {
+    "transform": {},
+    "setupFiles": [
+      "dotenv/config"
+    ]
   }
 }

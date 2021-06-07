@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
+import * as redis from "../redis.js";
 
 const app = express();
 const port = 3000;
@@ -36,7 +37,7 @@ import FruitsController from "./fruits/FruitsController.js";
 AuhtController(app);
 GraphQlController(app);
 SampleController(app);
-GeoCodingController(app);
+GeoCodingController(app, redis, GeoCodingController.ALL_GEOCODE_FUNCTIONS);
 FruitsController(app);
 
 app.listen(port, () => {

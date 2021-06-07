@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test case where value is in redis 1`] = `
+Object {
+  "lat": 27.678281,
+  "lng": 62.897701,
+}
+`;
+
+exports[`Test case where value is not in redis 1`] = `
+Object {
+  "lat": 27.678281,
+  "lng": 62.897701,
+}
+`;
