@@ -40,12 +40,12 @@ export const ALL_GEOCODE_FUNCTIONS = [
 
 export default (app, redis, geoCodeFunctions) => {
   app.get("/geocode", async (req, res) => {
-    console.time("geocode");
+    //console.time("geocode");
     const { address } = req.query;
 
     const oldValue = await redis.getAsync(address);
     if (oldValue) {
-      console.timeEnd("geocode");
+      //console.timeEnd("geocode");
       res.json(JSON.parse(oldValue));
     } else {
       try {
@@ -76,7 +76,7 @@ export default (app, redis, geoCodeFunctions) => {
         );
 
         redis.set(address, JSON.stringify(averages), "EX", 30);
-        console.timeEnd("geocode");
+        //console.timeEnd("geocode");
         res.json(averages);
       } catch (error) {
         console.error(error);

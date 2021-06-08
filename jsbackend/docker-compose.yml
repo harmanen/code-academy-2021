@@ -40,3 +40,9 @@ services:
 
   redis:
     image: redis
+
+  artillery:
+    image: artilleryio/artillery
+    volumes:
+      - ./__artillery__:/scripts
+    command: 'dino -m "Usage: docker-compose run artillery run /scripts/<__artillery__ script name>"'

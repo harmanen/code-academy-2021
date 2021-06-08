@@ -1,0 +1,23 @@
+config:
+  target: "http://jsbackend:3000"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
+  payload:
+    path: "cities.csv"
+    fields:
+      - "city"
+
+scenarios:
+  - name: "Fetch intensively multiple Cities"
+    flow:
+      - get:
+          url: "/geocode?address={{ city }}"
