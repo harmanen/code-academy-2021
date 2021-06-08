@@ -5,7 +5,12 @@ export default (app) => {
   app.get(
     "/Fruits",
     /*secure("USER", "ADMIN"),*/ async (req, res) => {
-      const fruits = await FruitModel.find({}).populate("color");
+      const { perPage = "20", page = "1" } = req.query;
+      const fruits = await FruitModel.find({})
+        .limit(parseInt(perPage))
+        .skip(parseInt(perPage) * (parseInt(page) - 1))
+        .sort("-_id")
+        .populate("color");
       res.json(fruits);
     }
   );
